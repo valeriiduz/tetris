@@ -1,9 +1,9 @@
-# tetris
+# Tetris
 Simple Tetris Game
 
-
 ## Compile
-
 ```
-g++ -o tetris main.cpp `sdl2-config --cflags --libs`
+make compile
 ```
+## Licence
+This repository is distributed under The Unlicense license
