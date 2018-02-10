@@ -9,17 +9,17 @@ int main(int argc, char *argv[]){
 
   SDL_Window *window;
 
-  window = SDL_CreateWindow( "Sub",
+  window = SDL_CreateWindow( "Tetris",
 			     SDL_WINDOWPOS_UNDEFINED,
 			     SDL_WINDOWPOS_UNDEFINED,
-			     400,
-			     200,
+			     700,
+			     600,
 			     SDL_WINDOW_RESIZABLE);
 
   //SDL_SetWindowBordered(window, SDL_FALSE);
   SDL_Surface *screen = SDL_GetWindowSurface(window);
 
-  Uint32 white = SDL_MapRGB(screen->format, 255,255,255);
+  Uint32 white = SDL_MapRGB(screen->format, 32,32,32);
 
   SDL_FillRect(screen, NULL, white);
 
@@ -33,7 +33,6 @@ int main(int argc, char *argv[]){
 
   while(running){
     while(SDL_PollEvent(&event)){
-
       if(event.type == SDL_QUIT){
 	running = false;
 	break;
