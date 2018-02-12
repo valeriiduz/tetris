@@ -17,7 +17,7 @@ private:
     
 public:
 
-    Sprite( Uint32 color, int x, int y, int w = 48, int h = 64) {
+    Sprite( Uint32 color, int x, int y, int w = 40, int h = 40) {
 	image = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0);
 
 	SDL_FillRect( image, NULL, color );

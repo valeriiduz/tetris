@@ -65,31 +65,61 @@ int main (int argc, char *argv[]) {
     Theme_Audio();
     
     //SDL_SetWindowBordered(window, SDL_FALSE);
-    SDL_Surface *screen = SDL_GetWindowSurface(Window);
+    SDL_Surface *screen = SDL_GetWindowSurface( Window );
 
-    Uint32 background = SDL_MapRGB(screen->format, 32,32,32);
-
-    SDL_FillRect(screen, NULL, background);
+    const Uint32 color_7f3b08 = SDL_MapRGB( screen->format, 127, 59, 8);
+    const Uint32 color_b35806 = SDL_MapRGB( screen->format, 179, 88, 6);
+    const Uint32 color_e08214 = SDL_MapRGB( screen->format, 224, 130, 20);
+    const Uint32 color_fdb863 = SDL_MapRGB( screen->format, 253, 184, 99);
+    const Uint32 color_fee0b6 = SDL_MapRGB( screen->format, 254, 224, 182);
+    const Uint32 color_f7f7f7 = SDL_MapRGB( screen->format, 247, 247, 247);
+    const Uint32 color_d8daeb = SDL_MapRGB( screen->format, 216, 218, 235);
+    const Uint32 color_b2abd2 = SDL_MapRGB( screen->format, 178, 171, 210);
+    const Uint32 color_8073ac = SDL_MapRGB( screen->format, 128, 115, 172);
+    const Uint32 color_542788 = SDL_MapRGB( screen->format, 84, 39, 136);
+    const Uint32 color_2d004b = SDL_MapRGB( screen->format, 45, 0, 75);
     
-    const double fps = 60;
+    const double fps = 10;
     Uint32 starting_tick;
     SDL_Event event;
     int x, y, w, h;
     bool running = true;
+    int top = 0;
 
     while(running){
 
+	SDL_FillRect(screen, NULL, color_f7f7f7);
+
+	Sprite panel( color_d8daeb, (700 - 300), 0, 300, 600);
+	panel.draw( screen );
+
 	starting_tick = SDL_GetTicks();
 
-	Uint32 col = SDL_MapRGB(screen->format, 0,0,32);
-	Sprite object(col, 700/2, 600/2);
-	Sprite cub(col, 70, 60);
+	Uint32 col = SDL_MapRGB( screen->format, 128, 115, 172 );
+
+	Sprite cub(col, 160, top);
+	Sprite cub1(col, 200, top);
+	Sprite cub2(col, 240, top);
+	Sprite cub3(col, 280, top);
 	
 	SpriteGroup sprites;
-	sprites.add( &object );
 	sprites.add( &cub );
+	sprites.add( &cub1 );
+	sprites.add( &cub2 );
+	sprites.add( &cub3 );
+	sprites.add( &panel );
 
 	sprites.draw( screen );
+
+	top += 40;
+	sprites.remove(cub);
+	sprites.empty(cub1);
+	sprites.empty(cub2);
+	sprites.empty(cub3);
+	if (top > 600)
+	    {
+		top = 0;
+	    }
 	
 	if ((1000 / fps) - SDL_GetTicks() - starting_tick)
 	    SDL_Delay( 1000 / fps - (SDL_GetTicks() - starting_tick));
