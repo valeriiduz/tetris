@@ -84,7 +84,14 @@ int main (int argc, char *argv[]) {
     SDL_Event event;
     int x, y, w, h;
     bool running = true;
-    int top = 0;
+    
+    int top_px = 0;
+    int left_px = 0*5;
+    
+    int dasboard[10][15] = {0,0};
+
+    int top_col = 0;
+    int left_col = 0;
 
     while(running){
 
@@ -97,10 +104,10 @@ int main (int argc, char *argv[]) {
 
 	Uint32 col = SDL_MapRGB( screen->format, 128, 115, 172 );
 
-	Sprite cub(col, 160, top);
-	Sprite cub1(col, 200, top);
-	Sprite cub2(col, 240, top);
-	Sprite cub3(col, 280, top);
+	Sprite cub(col, left_px, top_px);
+	Sprite cub1(col, left_px+(40*1), top_px);
+	Sprite cub2(col, left_px+(40*2), top_px);
+	Sprite cub3(col, left_px+(40*3), top_px);
 	
 	SpriteGroup sprites;
 	sprites.add( &cub );
@@ -111,14 +118,24 @@ int main (int argc, char *argv[]) {
 
 	sprites.draw( screen );
 
-	top += 40;
-	sprites.remove(cub);
-	sprites.empty(cub1);
-	sprites.empty(cub2);
-	sprites.empty(cub3);
-	if (top > 600)
-	    {
-		top = 0;
+	top_px += 40;
+
+	/*dasboard[top_col-1][0] = 0 ;
+	  dasboard[top_col-1][1] = 0;
+	  dasboard[top_col-1][2] = 0;
+	  dasboard[top_col-1][3] = 0;
+
+	  dasboard[top_col][0] = 1;
+	  dasboard[top_col][1] = 1;
+	  dasboard[top_col][2] = 1;
+	  dasboard[top_col][3] = 1;
+
+	  //top_col += 1;
+	  */
+	if (top_px >= 600) {
+		left_px += 40;
+		top_px = 0;
+		top_col = 0;
 	    }
 	
 	if ((1000 / fps) - SDL_GetTicks() - starting_tick)
@@ -127,9 +144,23 @@ int main (int argc, char *argv[]) {
 	SDL_GetWindowPosition(Window, &x, &y);
 	cout<<"X: "<<x<<" Y: "<<y<<endl;
 
+	for (int i = 0; i < 10; i++ ) {
+	    
+	    for (int p = 0; p < 15; p++) {
+
+		cout<<" "<<dasboard[i][p];
+	    }
+	    cout<<'\n';
+	}
+
 	SDL_UpdateWindowSurface(Window);
 	
 	while(SDL_PollEvent(&event)){
+
+	    if(event.type == SDL_KEYDOWN) {
+		SDL_Delay(1000);
+	    }
+	    
 	    if(event.type == SDL_QUIT){
 		running = false;
 		break;
