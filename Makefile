@@ -1,4 +1,4 @@
-sdl_config = `sdl2-config --cflags --libs`
+sdl_config = -lSDL2 -lSDL2_image
 
 compile:
 	g++ -o tetris.out main.cpp $(sdl_config)
